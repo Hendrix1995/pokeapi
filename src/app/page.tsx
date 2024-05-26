@@ -1,6 +1,6 @@
 import HomeContainer from "@/component/view/home/home-container";
 
-export default function Home() {
+export default async function Home() {
   return (
     <main>
       <HomeContainer />

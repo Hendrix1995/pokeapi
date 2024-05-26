@@ -1,3 +1,4 @@
+import { POKEMON_TYPES } from "@/script/const/pokemon-types";
 import React from "react";
 
 type Props = {};
@@ -20,7 +21,9 @@ function SearchSection({}: Props) {
         <div>
           <h2>type</h2>
           <select className='w-full max-w-[420px] p-2 text-[#313131] rounded-4'>
-            <option>A</option>
+            {POKEMON_TYPES.map((type) => {
+              return <option key={type.key}>{type.key}</option>;
+            })}
           </select>
         </div>
       </div>
