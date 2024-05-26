@@ -1,9 +1,17 @@
+"use client";
+
 import { POKEMON_TYPES } from "@/script/const/pokemon-types";
-import React from "react";
+import React, { useState } from "react";
 
 type Props = {};
 
 function SearchSection({}: Props) {
+  const [searchText, setSearchText] = useState("");
+
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchText(e.target.value);
+  };
+
   return (
     <div className='w-full text-white bg-[#313131] p-4 rounded-8'>
       <h1>Search</h1>
@@ -12,10 +20,10 @@ function SearchSection({}: Props) {
         <div>
           <h2>name</h2>
 
-          <div className='flex gap-2'>
-            <input className='w-full max-w-[420px] p-2 text-[#313131] rounded-4' />
+          <form className='flex gap-2'>
+            <input className='w-full max-w-[420px] p-2 text-[#313131] rounded-4' onChange={(e) => handleOnChange(e)} />
             <button className='bg-white text-[#313131] px-2 rounded-4'>search</button>
-          </div>
+          </form>
         </div>
 
         <div>
