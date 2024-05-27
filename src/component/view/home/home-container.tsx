@@ -2,6 +2,7 @@ import React from "react";
 import TitleSection from "./componet/home-title-section";
 import SearchSection from "./componet/home-search-section";
 import ListSection from "./componet/home-list-section";
+import HomePagination from "./componet/home-pagination";
 
 type Props = {};
 
@@ -11,6 +12,7 @@ function HomeContainer({}: Props) {
       <TitleSection />
       <SearchSection />
       <ListSection />
+      <HomePagination />
     </section>
   );
 }
