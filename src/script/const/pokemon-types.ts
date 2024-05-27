@@ -1,0 +1,16 @@
+export const POKEMON_TYPES = [
+  { key: "Normal", value: "normal", color: "#D9D9D9" },
+  { key: "Grass", value: "grass", color: "#47AB57" },
+  { key: "Fire", value: "fire", color: "#FD7D24" },
+  { key: "Water", value: "water", color: "#4592C4" },
+  { key: "Bug", value: "bug", color: "#719F3E" },
+  { key: "Electric", value: "electric", color: "#EED535" },
+  { key: "Rock", value: "rock", color: "#A28C21" },
+  { key: "Ghost", value: "ghost", color: "#7B62A3" },
+  { key: "Poison", value: "poison", color: "#B87EC9" },
+  { key: "Psychic", value: "psychic", color: "#F366B9" },
+  { key: "Fighting", value: "fighting", color: "#D56723" },
+  { key: "Ground", value: "ground", color: "#AB9842" },
+  { key: "Dragon", value: "dragon", color: "#F06D55" },
+  { key: "Reset", value: "reset", color: "#000000" },
+];
