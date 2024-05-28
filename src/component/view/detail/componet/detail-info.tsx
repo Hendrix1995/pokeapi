@@ -31,7 +31,7 @@ export default async function Info({ id }: Props) {
   return (
     <div>
       <p>{pokemon.name}</p>
-      <Image width={138} height={138} src={pokemon.sprites.front_default} alt={pokemon.name} />
+      <Image width={138} height={138} src={pokemon.sprites.front_default ?? ""} alt={pokemon.name} />
       <div className='flex items-center flex-wrap gap-2 max-w-[160px]'>
         {pokemon.types.map((typeEl: TypeResponse) => {
           return (
