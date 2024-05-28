@@ -4,14 +4,21 @@ import { TypeResponse } from "@/script/type/response-pokemon";
 import getTypeColor from "@/script/util/pokemon-get-type-color";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import { useSearchParams } from "next/navigation";
+import React, { useEffect } from "react";
 import useSWR from "swr";
 
-const URL = "https://pokeapi.co/api/v2/pokemon";
+interface CardProps {
+  value: string | number;
+}
 
-const getPokemon = async (id: number) => {
+const DEFAULT_URL = "https://pokeapi.co/api/v2/pokemon";
+
+const getPokemon = async (value: number | string) => {
+  if (typeof value === "number" && Number(value) < 0) return;
+
   try {
-    const response = await fetch(`${URL}/${id}`);
+    const response = await fetch(`${DEFAULT_URL}/${value}`);
     const data = await response.json();
     return data;
   } catch (error: unknown) {
@@ -19,8 +26,9 @@ const getPokemon = async (id: number) => {
   }
 };
 
-export default function Card({ id }: { id: number }) {
-  const { data: pokemon, isLoading } = useSWR([URL, id], () => getPokemon(id));
+export default function Card({ value }: CardProps) {
+  const { data: pokemon, isLoading } = useSWR([DEFAULT_URL, value], () => getPokemon(value));
+
   return (
     <li className='flex flex-col items-start gap-2 shadow-m p-2 rounded-12 cursor-pointer'>
       {isLoading ? (
@@ -31,7 +39,7 @@ export default function Card({ id }: { id: number }) {
       ) : (
         <Link href={`/${pokemon.id}`}>
           <div className='rounded-8 bg-[#D9D9D9]'>
-            <Image width={138} height={138} src={pokemon.sprites.front_default} alt={pokemon.name} />
+            <Image width={138} height={138} src={pokemon.sprites.front_default ?? ""} alt={pokemon.name} />
           </div>
 
           <div>

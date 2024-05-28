@@ -1,21 +1,35 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { END_ID, PAGE_GROUP_SIZE, PAGE_SIZE } from "@/script/const/pagination";
 
 function HomePagination() {
   const router = useRouter();
+  const pathname = usePathname();
   const params = useSearchParams();
+  const searchParams = useSearchParams();
 
   const [pageGroup, setPageGroup] = useState(1);
 
   const currentPage = Number(params.get("page"));
+  const currentSearch = params.get("search");
+  const currentType = params.get("type");
   const totalPages = Math.ceil(END_ID / PAGE_SIZE);
   const lastPageGroup = Math.ceil(totalPages / PAGE_GROUP_SIZE);
 
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set(name, value);
+
+      return params.toString();
+    },
+    [searchParams]
+  );
+
   const handleClickPage = (page: number) => {
-    router.push(`?page=${page}`, { scroll: false });
+    router.push(pathname + "?" + createQueryString("page", `${page}`), { scroll: false });
     window.scrollTo({ top: 410, behavior: "smooth" });
   };
 
@@ -42,48 +56,51 @@ function HomePagination() {
 
   useEffect(() => {
     if (!currentPage) {
-      router.push("?page=1", { scroll: false });
+      router.push(pathname + "?" + createQueryString("page", `${1}`), { scroll: false });
     }
   }, []);
 
   return (
-    <section className='bg-white mt-8'>
-      <ul className='flex justify-center items-center gap-2'>
-        <li
-          className='cursor-pointer'
-          style={{ color: pageGroup === 1 ? "#dddddd" : "black" }}
-          onClick={() => handleClickArrow("front")}
-        >
-          ◀
-        </li>
-        {pageGroups.map((page) => {
-          const isActive = currentPage === page;
+    !currentSearch &&
+    !currentType && (
+      <section className='bg-white mt-8'>
+        <ul className='flex justify-center items-center gap-2'>
+          <li
+            className='cursor-pointer'
+            style={{ color: pageGroup === 1 ? "#dddddd" : "black" }}
+            onClick={() => handleClickArrow("front")}
+          >
+            ◀
+          </li>
+          {pageGroups.map((page) => {
+            const isActive = currentPage === page;
 
-          return (
-            <li
-              className='px-2 text-center rounded-4'
-              style={{
-                backgroundColor: isActive ? "#f4f4f4" : "white",
-                fontWeight: isActive ? 700 : 400,
-                cursor: isActive ? "default" : "pointer",
-                border: isActive ? "1px solid #dddddd" : "none",
-              }}
-              key={page}
-              onClick={() => handleClickPage(page)}
-            >
-              {page}
-            </li>
-          );
-        })}
-        <li
-          className='cursor-pointer'
-          style={{ color: pageGroup === lastPageGroup ? "#dddddd" : "black" }}
-          onClick={() => handleClickArrow("back")}
-        >
-          ▶
-        </li>
-      </ul>
-    </section>
+            return (
+              <li
+                className='px-2 text-center rounded-4'
+                style={{
+                  backgroundColor: isActive ? "#f4f4f4" : "white",
+                  fontWeight: isActive ? 700 : 400,
+                  cursor: isActive ? "default" : "pointer",
+                  border: isActive ? "1px solid #dddddd" : "none",
+                }}
+                key={page}
+                onClick={() => handleClickPage(page)}
+              >
+                {page}
+              </li>
+            );
+          })}
+          <li
+            className='cursor-pointer'
+            style={{ color: pageGroup === lastPageGroup ? "#dddddd" : "black" }}
+            onClick={() => handleClickArrow("back")}
+          >
+            ▶
+          </li>
+        </ul>
+      </section>
+    )
   );
 }
 
