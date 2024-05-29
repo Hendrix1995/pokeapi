@@ -1,14 +1,16 @@
-import DetailContainer from "@/component/view/detail/detail-container";
-import TitleSection from "@/component/view/home/componet/home-title-section";
+import BackButton from "@/component/common/common-back-button";
+import TitleSection from "@/component/common/common-title-section";
+import InfoSection from "@/component/view/detail/component/detail-info-section";
 import React from "react";
 
 type DetailPageProps = { params: { id: string } };
 
 export default function DetailPage({ params }: DetailPageProps) {
   return (
-    <main>
+    <main className='relative py-12 px-8 flex flex-col items-center gap-16'>
       <TitleSection />
-      <DetailContainer id={params.id} />
+      <InfoSection id={params.id} />
+      <BackButton />
     </main>
   );
 }

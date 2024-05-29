@@ -32,8 +32,9 @@ function HomeTypeCard({}: Props) {
     data && pushType();
   }, [currentType, data, pushType, router]);
 
-  return (
-    !isLoading &&
+  return isLoading ? (
+    <h1>Loading...</h1>
+  ) : (
     data?.pokemon.map((pokemonRes: { pokemon: { name: string } }) => {
       return <Card key={pokemonRes.pokemon.name} value={pokemonRes.pokemon.name} />;
     })
