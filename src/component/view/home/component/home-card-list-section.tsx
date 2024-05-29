@@ -6,7 +6,7 @@ import { useSearchParams } from "next/navigation";
 import HomePageCard from "./home-list-card";
 import HomeTypeCard from "./home-type-card";
 
-export default function ListSection() {
+export default function CardListSection() {
   const params = useSearchParams();
   const currentPage = Number(params.get("page"));
   const currentSearch = params.get("search");
