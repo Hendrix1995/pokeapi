@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { END_ID, PAGE_GROUP_SIZE, PAGE_SIZE } from "@/script/const/pagination";
+import { useCreateQueryString, useRouterPush } from "@/script/hook/useRouterHook";
 
 function HomePagination() {
   const router = useRouter();
@@ -18,15 +19,7 @@ function HomePagination() {
   const totalPages = Math.ceil(END_ID / PAGE_SIZE);
   const lastPageGroup = Math.ceil(totalPages / PAGE_GROUP_SIZE);
 
-  const createQueryString = useCallback(
-    (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams.toString());
-      params.set(name, value);
-
-      return params.toString();
-    },
-    [searchParams]
-  );
+  const { createQueryString } = useCreateQueryString(searchParams);
 
   const handleClickPage = (page: number) => {
     router.push(pathname + "?" + createQueryString("page", `${page}`), { scroll: false });
@@ -56,7 +49,7 @@ function HomePagination() {
 
   useEffect(() => {
     if (!currentPage) {
-      router.push(pathname + "?" + createQueryString("page", `${1}`), { scroll: false });
+      router.push(pathname + "?" + createQueryString("page", `1`), { scroll: false });
     }
   }, []);
 

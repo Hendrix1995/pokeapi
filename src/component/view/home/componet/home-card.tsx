@@ -1,18 +1,16 @@
 "use client";
 
+import { DEFAULT_URL } from "@/script/model/config";
 import { TypeResponse } from "@/script/type/response-pokemon";
-import getTypeColor from "@/script/util/pokemon-get-type-color";
+import getTypeColor from "@/script/util/services-util";
 import Image from "next/image";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
-import React, { useEffect } from "react";
+import React from "react";
 import useSWR from "swr";
 
 interface CardProps {
   value: string | number;
 }
-
-const DEFAULT_URL = "https://pokeapi.co/api/v2/pokemon";
 
 const getPokemon = async (value: number | string) => {
   if (typeof value === "number" && Number(value) < 0) return;

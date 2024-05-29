@@ -4,10 +4,10 @@ import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect } from "react";
 import useSWR from "swr";
 import Card from "./home-card";
+import { TYPE_URL } from "@/script/model/config";
+import { useRouterPush } from "@/script/hook/useRouterHook";
 
 type Props = {};
-
-const TYPE_URL = "https://pokeapi.co/api/v2/type";
 
 const getPokemonType = async (type: string) => {
   try {
@@ -26,13 +26,15 @@ function HomeTypeCard({}: Props) {
 
   const { data, isLoading } = useSWR([TYPE_URL, currentType], () => getPokemonType(currentType as string));
 
+  const { push: pushType } = useRouterPush({ prams: [{ key: "type", value: currentType || "reset" }] });
+
   useEffect(() => {
-    data && router.push(`/?type=${currentType}`, { scroll: false });
-  }, [currentType, data, router]);
+    data && pushType();
+  }, [currentType, data, pushType, router]);
 
   return (
     !isLoading &&
-    data.pokemon.map((pokemonRes: { pokemon: { name: string } }) => {
+    data?.pokemon.map((pokemonRes: { pokemon: { name: string } }) => {
       return <Card key={pokemonRes.pokemon.name} value={pokemonRes.pokemon.name} />;
     })
   );
