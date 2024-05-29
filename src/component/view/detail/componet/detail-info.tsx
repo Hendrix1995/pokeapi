@@ -1,8 +1,9 @@
-import getTypeColor from "@/script/util/pokemon-get-type-color";
+import { DEFAULT_URL } from "@/script/model/config";
+import getTypeColor from "@/script/util/services-util";
 import Image from "next/image";
 import React from "react";
 
-type Props = { id: string };
+type InfoProps = { id: string };
 
 interface TypeResponse {
   type: { name: string };
@@ -13,11 +14,9 @@ interface StatsResponse {
   base_stat: string;
 }
 
-const URL = "https://pokeapi.co/api/v2/pokemon";
-
 async function getPokemon<PokemonResponse>(id: string) {
   try {
-    const response = await fetch(`${URL}/${id}`);
+    const response = await fetch(`${DEFAULT_URL}/${id}`);
     const data = await response.json();
     return data;
   } catch (error: unknown) {
@@ -25,7 +24,7 @@ async function getPokemon<PokemonResponse>(id: string) {
   }
 }
 
-export default async function Info({ id }: Props) {
+export default async function Info({ id }: InfoProps) {
   const pokemon = await getPokemon(id);
 
   return (

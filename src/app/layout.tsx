@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { VT323 } from "next/font/google";
 import "@/resource/css/globals.css";
+import TitleSection from "@/component/view/home/componet/home-title-section";
 
 const vt323 = VT323({
   subsets: ["latin"],

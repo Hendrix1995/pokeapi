@@ -5,9 +5,7 @@ import { PAGE_SIZE } from "@/script/const/pagination";
 import { useSearchParams } from "next/navigation";
 import Card from "./home-card";
 
-type Props = {};
-
-function HomePageCard({}: Props) {
+function HomePageCard() {
   const [ids, setIds] = useState(Array.from(new Array(PAGE_SIZE), (_, index) => 1 + index));
 
   const params = useSearchParams();

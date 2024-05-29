@@ -1,8 +1,6 @@
 import React from "react";
 
-type Props = {};
-
-function HomeLoading({}: Props) {
+function HomeLoading() {
   return (
     <section className='flex justify-center items-center h-screen'>
       <div className='flex flex-col items-center gap-2'>

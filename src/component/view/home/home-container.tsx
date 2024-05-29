@@ -8,12 +8,12 @@ type Props = {};
 
 function HomeContainer({}: Props) {
   return (
-    <section className='py-12 px-8 flex flex-col items-center gap-8'>
+    <div className='py-12 px-8 flex flex-col items-center gap-8'>
       <TitleSection />
       <SearchSection />
       <ListSection />
       <HomePagination />
-    </section>
+    </div>
   );
 }
 

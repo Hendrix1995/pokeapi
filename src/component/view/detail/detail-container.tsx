@@ -1,9 +1,9 @@
 import React from "react";
 import Info from "./componet/detail-info";
 
-type Props = { id: string };
+type DetailContainerProps = { id: string };
 
-function DetailContainer({ id }: Props) {
+function DetailContainer({ id }: DetailContainerProps) {
   return (
     <section>
       <Info id={id} />
